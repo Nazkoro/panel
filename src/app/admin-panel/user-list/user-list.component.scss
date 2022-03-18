@@ -1,0 +1,27 @@
+.container{
+  background-color: darkcyan;
+}
+
+.todo-item__element {
+  list-style: none;
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  user-select: none;
+  border-bottom: 1px solid white;
+
+  span {
+    font-size: 26px;
+    color: #ffffff;
+    padding: 10px;
+  }
+
+  &:hover {
+    background-color: aliceblue;
+    transition: 0.5s;
+
+    span {
+      color: black;
+    }
+  }
+}

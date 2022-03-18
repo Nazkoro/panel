@@ -1,0 +1,9 @@
+<div class="container">
+  <li (click)="selectTodo(todo)" class="todo-item__element" *ngFor="let todo of todos">
+    <div>
+      <span>{{todo.createdAt | date : 'MMM dd yyyy' }} </span>
+      <span>{{todo.username | uppercase}}</span>
+      <!--    <span>{{todo.task | taskFormat}} </span>-->
+    </div>
+  </li>
+</div>
