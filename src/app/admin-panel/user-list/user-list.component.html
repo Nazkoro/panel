@@ -1,9 +1,48 @@
-<div class="container">
-  <li (click)="selectTodo(todo)" class="todo-item__element" *ngFor="let todo of todos">
-    <div>
-      <span>{{todo.createdAt | date : 'MMM dd yyyy' }} </span>
-      <span>{{todo.username | uppercase}}</span>
-      <!--    <span>{{todo.task | taskFormat}} </span>-->
-    </div>
-  </li>
+<!--<div class="container">-->
+<!--  <app-pagination> pagination </app-pagination>-->
+<!--  <li (click)="selectTodo(todo)" class="todo-item__element" *ngFor="let todo of todos">-->
+<!--    <div>-->
+<!--&lt;!&ndash;      <span>{{todo.createdAt | date : 'MMM dd yyyy' }} </span>&ndash;&gt;-->
+<!--      <span>{{todo.username | uppercase}} |</span>-->
+<!--      <span>имя{{todo.firstName }} |</span>-->
+<!--      <span>фамилия {{todo.lastName }} |</span>-->
+<!--      <span>позиция {{todo.position }}</span>-->
+<!--      &lt;!&ndash;    <span>{{todo.task | taskFormat}} </span>&ndash;&gt;-->
+<!--    </div>-->
+<!--  </li>-->
+<!--</div>-->
+
+
+<div class="list">
+  <div class="filter">
+    <p>filter data</p>
+    <label for="cars">по году рождения:</label>
+
+    <select [(ngModel)]="selectedOption" name="cars" id="cars">
+      <option value=">"> > </option>
+      <option value=">="> >= </option>
+      <option value="=="> = </option>
+      <option value="<="> <= </option>
+      <option value="<"> < </option>
+      <option value="all"> all </option>
+    </select><br>
+
+    <label for="year">write year:</label>
+    <input type="text" id="year" name="year" [(ngModel)]="year" placeholder="write (number format xxxx)"><br><br>
+    <button (click)="submitFilter()"> Fiter data</button>
+
+  </div>
+  <ul>
+    <li *ngFor="let item of collection | paginate: { itemsPerPage: 3, currentPage: p }">
+      <span>username: {{item?.username | uppercase}} |</span>
+      <span>email: {{item?.email }} |</span>
+      <span>имя: {{item?.firstName }} |</span>
+      <span>фамилия: {{item?.lastName }} |</span>
+      <span>позиция: {{item?.position }}</span>
+      <span>Страна: {{item?.country }} |</span>
+      <span>Город: {{item?.city }}</span>
+      <span>Год рождения: {{item?.year }}</span>
+    </li>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </ul>
 </div>

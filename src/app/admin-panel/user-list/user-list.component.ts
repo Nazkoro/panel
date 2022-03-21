@@ -7,26 +7,66 @@ import {UserService} from "../user.service";
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  // @Input() todos?: Todo[];
-  // @Output() selectedTodo = new EventEmitter<Todo>();
-  // todos = [{date: "13-01-2020", title: "yummy"},
-  //         {date: "13-01-2010", title: "yummy21"},
-  //         {date: "13-01-2030", title: "yummy3434"},]
-  todos?: any[];
+  p: number = 1;
+  collection?: any = [];
+  collection2?: any = [];
+  year?: any = ""
+  selectedOption: any;
 
-  constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
+  constructor(private userService: UserService) {
     this.userService.getUsers().subscribe((data:any) => {
       console.log(data)
-      this.todos = data
+      // @ts-ignore
+      data.forEach((item: any) => this.collection.push(item))
     });
+
   }
 
+  ngOnInit(): void {
+    this.collection2 = this.collection
+    console.log(this.collection2)
+  }
+
+  submitFilter(){
+    this.collection = this.collection2
+    console.log("current year", this.year)
+    console.log(this.selectedOption)
+    switch (this.selectedOption) {
+      case ">":
+        console.log(this.selectedOption);
+        this.collection = this.collection.filter((user: any) => user.year != "" && +user.year > +this.year )
+        break;
+      case "all":
+        console.log(this.selectedOption);
+        this.collection = this.collection2
+        break;
+      case ">=":
+        console.log(this.selectedOption);
+        this.collection = this.collection.filter((user: any) => user.year != "" && +user.year >= +this.year )
+        break;
+      case "==":
+        console.log(this.selectedOption);
+        this.collection = this.collection.filter((user: any) => user.year != "" && +user.year == +this.year )
+        break;
+      case "<=":
+        console.log(this.selectedOption);
+        this.collection = this.collection.filter((user: any) => user.year != "" && +user.year <= +this.year )
+        break;
+      case "<":
+        console.log(this.selectedOption);
+        this.collection = this.collection.filter((user: any) => user.year != "" && +user.year < +this.year )
+        break;
+      default:
+        console.log("Sorry, invalid data");
+    }
+    console.log("this.selectedOption;", this.collection)
+
+    this.year = "";
+  }
 
   selectTodo(event : any): void {
     console.log(event)
-    // this.selectedTodo.emit(event)
   }
 
 }
